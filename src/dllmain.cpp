@@ -6,7 +6,7 @@ void ReadConfig()
 	WCHAR inputBuffer[50];
 	WCHAR configName[] = L".\\plugins\\multiskill.ini";
 
-	GetPrivateProfileString(L"General", L"Toggle Skill Equip", L"0x0061", inputBuffer, 50, configName);
+	GetPrivateProfileString(L"General", L"ToggleSkillEquip", L"0x0061", inputBuffer, 50, configName);
 	keyParam = std::stoi(inputBuffer, nullptr, 16);
 }
 
