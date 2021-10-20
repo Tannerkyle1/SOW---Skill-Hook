@@ -32,7 +32,6 @@ void ThreadMain(void *arg)
 
 DLLHOOK OnLoad()
 {
-	MH_Initialize();
 	GameHook::CreateGameHooks();
 	_beginthread(ThreadMain, 0, nullptr);
 }
@@ -42,10 +41,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD callReason, LPVOID lpReserved)
 	if(callReason == DLL_PROCESS_ATTACH)
 		DisableThreadLibraryCalls(hModule);
 	else if(callReason == DLL_PROCESS_DETACH)
-	{
 		isAttached = false;
-        MH_Uninitialize();
-	}
 
     return TRUE;
 }
