@@ -1,13 +1,15 @@
 #include <framework.h>
 
 int keyParam;
+bool playSound;
 void ReadConfig()
 {
 	WCHAR inputBuffer[50];
 	WCHAR configName[] = L".\\plugins\\multiskill.ini";
 
-	GetPrivateProfileString(L"General", L"ToggleSkillEquip", L"0x0061", inputBuffer, 50, configName);
+	GetPrivateProfileString(L"General", L"ToggleSkillEquip", L"0x11", inputBuffer, 50, configName);
 	keyParam = std::stoi(inputBuffer, nullptr, 16);
+	playSound = GetPrivateProfileInt(L"General", L"PlaySound", 1, configName);
 }
 
 bool isAttached = true;
@@ -23,10 +25,14 @@ void ThreadMain(void *arg)
 			if(!wasKeyPressed)
 			{
 				wasKeyPressed = true;
-				GameHook::ToggleSkillEquipHook();
+				GameHook::ToggleSkillEquipHook(!playSound);
 			}
 		}
-		else wasKeyPressed = false;
+		else if(wasKeyPressed)
+		{
+			GameHook::ToggleSkillEquipHook(!playSound);
+			wasKeyPressed = false;
+		}
 	}
 }
 

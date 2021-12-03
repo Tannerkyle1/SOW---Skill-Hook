@@ -55,6 +55,5 @@ namespace GameHook
     void CreateGameHooks()
     {
         CreateSkillEquipHook();
-        ToggleSkillEquipHook(true);
     }
 }
